@@ -1,0 +1,51 @@
+﻿<Page x:Class="IsItJustMeOrServerCooties.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:data="using:IsItJustMeOrServerCooties.Data"
+      xmlns:converters="using:IsItJustMeOrServerCooties.Converters"
+      mc:Ignorable="d"
+      Loaded="UpdateStatus">
+	<Page.Resources>
+		<converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+	</Page.Resources>
+    <Border Padding="10" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid x:Name="Root" d:DataContext="{d:DesignInstance data:DiscoStatus}">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+				<RowDefinition Height="10"/>
+				<RowDefinition/>
+				<RowDefinition Height="10"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
+				<Image Source="Images/TRWTF.png" Stretch="None"/>
+                <Image Source="Images/IsDiscourse.png" Stretch="None" Margin="0,10,0,0" Visibility="{Binding IsUp, ConverterParameter=i, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}"/>
+                <Image Source="Images/IsYou.png" Stretch="None" Margin="0,10,0,0" Visibility="{Binding IsUp, Converter={StaticResource BoolToVisibilityConverter}, FallbackValue=Collapsed}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding Status}"/>
+                <TextBlock Text="{Binding Message}"/>
+            </StackPanel>
+            <GridView Grid.Row="4" ItemsSource="{Binding Summary}" HorizontalAlignment="Center">
+				<GridView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                        	<Grid.ColumnDefinitions>
+                        		<ColumnDefinition Width="Auto"/>
+                        		<ColumnDefinition Width="10"/>
+                        		<ColumnDefinition Width="Auto"/>
+                        	</Grid.ColumnDefinitions>
+                        	<TextBlock Text="{Binding Uri}"/>
+                        	<TextBlock Grid.Column="2" Text="{Binding Ping}"/>
+                        </Grid>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+			</GridView>
+			<Button Content="Refresh Status" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Click="UpdateStatus" Grid.Row="6"/>
+		</Grid>
+	</Border>
+</Page>
