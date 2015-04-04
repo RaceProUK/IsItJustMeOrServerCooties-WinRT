@@ -15,9 +15,10 @@ namespace IsItJustMeOrServerCooties.Services
             "isitjustmeorservercooti.es",
             "isitjusmeorservercooties.com",
             "isitjustmeorservercooties.com",
-            "servercooties.com"
+            "servercooties.com",
+            "http://discourse.is.thereal.wtf/",
+            "http://you.are.thereal.wtf/"
         };
-
         private const String DataPath = "index.json";
 
         public static async Task<DiscoStatus> GetCurrentStatus()
